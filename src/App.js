@@ -1,25 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment } from 'react';
+
+import Context from './context/Context';
+import Provider from './context/Provider';
+
+import Header from './components/Header';
+import Home from './pages/Home';
+import Details from './pages/Details';
+import Loader from './components/Loader';
+
+import './global.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider>
+      <div className="App">
+        <div className="app-container">
+          <Header />
+          <Context.Consumer>
+            {context => (
+              <Fragment>
+              { context.isLoading && <Loader /> }
+              { !context.dataSelected.status && <Home /> }
+              { context.dataSelected.status && <Details /> }
+              </Fragment>
+            )}
+          </Context.Consumer>
+        </div>
+      </div>
+    </Provider>
   );
 }
 
