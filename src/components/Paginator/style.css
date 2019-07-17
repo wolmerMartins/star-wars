@@ -7,14 +7,14 @@
 }
 
 .paginator-container nav {
-    width: 8rem;
+    width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-content: center;
 }
 
 .paginator-container nav button {
-    width: 1rem;
+    width: 3.5rem;
     height: 1rem;
     color: #FFF;
     font-size: .555rem;
@@ -25,49 +25,15 @@
     -moz-transition: color .3s linear;
     -o-transition: color .3s linear;
     transition: color .3s linear;
+    border: 1px solid #FFF;
 }
 
-.paginator-container nav button:hover {
-    color: #666;
+.paginator-container nav button:hover:not([disabled]) {
+    background: #FFF;
+    color: #000;
 }
 
 .paginator-container nav button[disabled] {
     opacity: .3;
     cursor: not-allowed;
-}
-
-.change-page {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-}
-
-.change-page div {
-    width: .5rem;
-    height: .5rem;
-    border: .3rem solid transparent;
-}
-
-.paginator-container .prev {
-    border-right-color: #FFF;
-    -webkit-transition: all .3s linear;
-    -moz-transition: all .3s linear;
-    -o-transition: all .3s linear;
-    transition: all .3s linear;
-}
-
-.paginator-container .prev:hover {
-    border-right-color: #666;
-}
-
-.paginator-container .next {
-    border-left-color: #FFF;
-    -webkit-transition: all .3s linear;
-    -moz-transition: all .3s linear;
-    -o-transition: all .3s linear;
-    transition: all .3s linear;
-}
-
-.paginator-container .next:hover {
-    border-left-color: #666;
 }

@@ -8,7 +8,6 @@ class Provider extends Component {
         isLoading: true,
         filteredBy: '',
         data: {},
-        pages: 0,
         dataSelected: {
             status: false,
             data: {}
@@ -24,6 +23,14 @@ class Provider extends Component {
         } catch(err) {
             console.log({ error: err });
         }
+    }
+
+    returnToHome() {
+        this.setState({ dataSelected: { status: false, data: this.state.dataSelected.data } });
+        
+        let page = 1;
+        if (this.state.data.previous) page = parseInt(this.state.data.previous.replace(/[^0-9]/g, '')) + 1;
+        this.getDataByPage(`https://swapi.co/api/${this.state.filteredBy}/?page=${page}`);
     }
 
     async getDataByUrl(card) {
@@ -74,12 +81,11 @@ class Provider extends Component {
     }
 
     async getDataByFilter(filter) {
-        this.setState({ isLoading: true, filteredBy: filter });
+        this.setState({ isLoading: true, filteredBy: filter, dataSelected: { status: false, card: this.state.dataSelected.data } });
         
         try {
             let response = await api.fetchBase.get(filter);
-            let pages = Math.ceil(response.data.count / 10);
-            this.setState({ data: response.data, pages, isLoading: false, dataSelected: { status: false, card: this.state.card } });
+            this.setState({ data: response.data, isLoading: false });
         } catch(err) {
             console.log({ error: err });
         }
@@ -96,11 +102,11 @@ class Provider extends Component {
                     isLoading: this.state.isLoading,
                     filteredBy: this.state.filteredBy,
                     data: this.state.data,
-                    pages: this.state.pages,
                     dataSelected: this.state.dataSelected,
                     getDataByFilter: (filter) => this.getDataByFilter(filter),
                     getDataById: (cardId) => this.getDataById(cardId),
-                    getDataByPage: (page) => this.getDataByPage(page)
+                    getDataByPage: (page) => this.getDataByPage(page),
+                    returnToHome: () => this.returnToHome()
                 }}
             >
                 { this.props.children }

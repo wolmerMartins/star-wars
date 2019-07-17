@@ -16,6 +16,32 @@
     height: 8rem;
 }
 
+.card-details-container .card-image-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-details-container .card-image-button .go-back-button {
+    border: 1px solid #FFF;
+    background: none;
+    width: 3.5rem;
+    height: 1rem;
+    color: #FFF;
+    font-size: .555rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    -webkit-transition: all .3s linear;
+    -moz-transition: all .3s linear;
+    -o-transition: all .3s linear;
+    transition: all .3s linear;
+}
+
+.card-details-container .card-image-button .go-back-button:hover {
+    background: #FFF;
+    color: #000;
+}
+
 .card-details-container .card-infos {
     flex-grow: 1;
 }
@@ -43,6 +69,7 @@
 .card-details-container .card-infos .card-body {
     display: flex;
     justify-content: flex-start;
+    align-items: flex-start;
     flex-wrap: wrap;
     padding: .6rem;
 }

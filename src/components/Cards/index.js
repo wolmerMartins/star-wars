@@ -9,7 +9,7 @@ const Cards = props => (
         <div key={res.url} className="card-container">
             <button onClick={() => props.getDataById(res.url)} className="card-selected">Click for details</button>
             <div className="card">
-                <img className="background-image" src={res.name ? images[res.name.replace(/[ -]/g, '')] : images[res.title]} alt="ilustration of card component" />
+                <img className="background-image" src={res.name ? images[res.name.replace(/[^A-Za-z0-9]/g, '')] : images[res.title.replace(/[^A-Za-z0-9]/g, '')]} alt="ilustration of card component" />
                 <div className="card-name">
                     <h2>{res.name ? res.name : res.title}</h2>
                 </div>

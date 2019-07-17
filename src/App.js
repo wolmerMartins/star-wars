@@ -1,11 +1,11 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+import { BrowserRouter, Redirect } from 'react-router-dom';
 
 import Context from './context/Context';
 import Provider from './context/Provider';
+import Routes from './routes';
 
 import Header from './components/Header';
-import Home from './pages/Home';
-import Details from './pages/Details';
 import Loader from './components/Loader';
 
 import './global.css';
@@ -18,11 +18,12 @@ function App() {
           <Header />
           <Context.Consumer>
             {context => (
-              <Fragment>
-              { context.isLoading && <Loader /> }
-              { !context.dataSelected.status && <Home /> }
-              { context.dataSelected.status && <Details /> }
-              </Fragment>
+              <BrowserRouter>
+                <Routes />
+                { context.isLoading && <Loader /> }
+                { !context.dataSelected.status && <Redirect to="/" /> }
+                { context.dataSelected.status && <Redirect to="/details" /> }
+              </BrowserRouter>
             )}
           </Context.Consumer>
         </div>
