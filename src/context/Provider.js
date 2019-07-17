@@ -77,7 +77,7 @@ class Provider extends Component {
             }
         }
 
-        this.setState({ dataSelected: { status: true, data: card }, isLoading: false });
+        this.setState({ dataSelected: { status: true, data: card[0] }, isLoading: false });
     }
 
     async getDataByFilter(filter) {

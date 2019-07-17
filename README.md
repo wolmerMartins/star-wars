@@ -1,68 +1,158 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Sobre o projeto
 
-## Available Scripts
+Este projeto foi desenvolvido para exibir as informações sobre a franquia Star Wars. Foi utilizado para o desenvolvimento da interface a tecnologia React e consumindo os dados da API pública swapi.co.
 
-In the project directory, you can run:
+# Estrutura de Arquivos
 
-### `npm start`
+```
+star-wars
+|-- public
+|   |-- favicon.ico
+|   |-- index.html
+|   |-- manifest.json
+|-- src
+|   |-- assets
+|   |   |-- images
+|   |   |   |-- background.png
+|   |   |   |-- images.js
+|   |   |   |-- star-wars-logo.png
+|   |   |   |-- tie-defender.png
+|   |-- components
+|   |   |-- CardList
+|   |   |   |-- index.js
+|   |   |   |-- style.css
+|   |   |-- Cards
+|   |   |   |-- index.js
+|   |   |   |-- style.css
+|   |   |-- DetailsImage
+|   |   |   |-- index.js
+|   |   |-- FilmDetails
+|   |   |   |-- index.js
+|   |   |-- Header
+|   |   |   |-- index.js
+|   |   |   |-- style.css
+|   |   |-- Loader
+|   |   |   |-- index.js
+|   |   |   |-- style.css
+|   |   |-- Paginator
+|   |   |   |-- index.js
+|   |   |   |-- style.css
+|   |   |-- PeopleDetails
+|   |   |   |-- index.js
+|   |   |-- PlanetDetails
+|   |   |   |-- index.js
+|   |   |-- SpecieDetails
+|   |   |   |-- index.js
+|   |   |-- StarshipDetails
+|   |   |   |-- index.js
+|   |   |-- VehicleDetails
+|   |   |   |-- index.js
+|   |-- Context
+|   |   |-- Context.js
+|   |   |-- Provider.js
+|   |-- Pages
+|   |   |-- Details
+|   |   |   |-- index.js
+|   |   |   |-- style.css
+|   |   |-- Home
+|   |   |   |-- index.js
+|   |   |   |-- style.css
+|   |-- App.js
+|   |-- App.test.js
+|   |-- global.css
+|   |-- index.js
+|   |-- routes.js
+|   |-- serviceWorkers.js
+|   |-- services.js
+```
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Instalação
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Para instalar e utilizar este projeto o processo é bem simples, basta executar alguns comandos dentro da pasta do projeto na máquina local.
 
-### `npm test`
+1. Instalação das dependências do projeto:
+```
+npm install
+```
+Este comando irá baixar todas as depências do projeto para sua execução.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Após todas as depências serem instaladas, basta executar o comando:
+```
+npm start
+```
+Para inicializar o projeto.
 
-### `npm run build`
+# Descrição de Arquivos
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**_images.js_** é a coleção de imagens do projeto, todas as imagens referentes aos personagens, naves, veiculos e etc, estão relacionadas neste arquivo. As imagens serão renderizadas para o cliente de acordo com o nome ou o título do objeto.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+**_Components_**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**_CardList_** faz a renderização das lista dos objetos, como listas de filmes, personagens, pilotos, etc. Para a utilização basta passar o array de objetos a serem exibidos e um título.
+```
+<CardList data={array_de_objetos} title={título_da_lista} />
+```
 
-### `npm run eject`
+**_Cards_** exibe todas as informações de forma resumida, apresentando apenas uma imagem de fundo e um nome ou título. Para exibir os detalhes do cartão, basta clicar no mesmo. A utilização é feita passando os dados que serão exibidos em forma de cartões e uma função para pegar os dados pelo ID do objeto.
+```
+<Cards data={array_de_objetos} getDataById={função} />
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**_DetailsImage_** exibe a imagem do cartão selecionado e o botão de voltar para Home. Para carregar a imagem e a função de retorno, devem ser passados dois parametros para o componente, o nome do cartão e a função de retorno.
+```
+<DetailsImage name={context.dataSelected.data.name} goBack={context.returnToHome} />
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**_Header_** é o cabeçalho da aplicação, onde encontram-se, a logo e os botões para fitlrar os dados que serão exibidos em *Pages Home*.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+**_Loader_** é o componente utilizado entre os *requests*, enquanto o cliente espera que a informação seja renderizada na tela.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+**_Paginator_** são os botões responsáveis pela navegação entre as páginas de cartões em *Pages Home*. Os botões serão desabilitados caso não exista páginas para serem navegadas.
 
-## Learn More
+**_FilmDetails_**, **_PeopleDetails_**, **_PlanetDetails_**, **_SpecieDetails_**, **_StarshipDetails_** e **_VehicleDetails_**, exibem os detalhes do cartão selecionado. Os dados são carregados diretamente do **_Context_**, sem a necessidade de passar *props*. O component será renderizado em *Pages Details*, se o filtro selecionado for for correspondente ao tipo do componente.
+```
+{context.filteredBy === 'people' && <PeopleDetails />}
+{context.filteredBy === 'starships' && <StarshipsDetails />}
+{context.filteredBy === 'films' && <FilmDetails />}
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**_Context_**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Para a integração do componentes foi utilizada a **_ContextAPI_** nativa do React.
 
-### Code Splitting
+**_Context.js_** cria uma instância da **_ContextAPI_** para ser utilizada no projeto.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+**_Provider.js_** centraliza a *state tree* do projeto e todas as funçoes de manipulação da mesma, para serem utilizadas por todos os componentes.
+```
+state = {
+    isLoading: true,
+    filteredBy: '',
+    data: {},
+    dataSelected: {
+        status: false,
+        data: {}
+    }
+}
+```
 
-### Analyzing the Bundle Size
+**_getDataByFilter(filter)_** busca os dados na API de acordo com o filtro selecionado.
+```
+<button onClick={() => context.getDataByFilter('people')}>People</button>
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+**_getDataById(cardId)_** busca os detalhes de um objeto pelo seu ID.
+```
+<button onClick={() => props.getDataById(res.url)}>Click for details</button>
+```
 
-### Making a Progressive Web App
+**_getDataByPage(page)_** retorna os dados da API paginados.
+```
+<button onClick={() => context.getDataByPage(context.data.previous)}>Previous</button>
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+**_returnToHome()_** retorna para a página *Home* após exibir os detalhes de um cartão.
+```
+<button onClick={() => context.returnToHome()}>Go back</button>
+```
 
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+**_getDataByUrl(card)_** busca todos os dados referenciados no objeto selecionado pelas suas URLs.
